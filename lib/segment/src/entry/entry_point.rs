@@ -4,6 +4,8 @@ use crate::types::{SeqNumberType, VectorElementType, Filter, PointIdType, Payloa
 use std::result;
 use std::io::Error as IoError;
 use atomicwrites::Error as AtomicIoError;
+use serde_json::Error as JsonError;
+
 use rocksdb::Error;
 
 
@@ -50,6 +52,12 @@ impl From<IoError> for OperationError {
 impl From<Error> for OperationError {
     fn from(err: Error) -> Self {
         OperationError::ServiceError { description: format!("persistence error: {}", err) }
+    }
+}
+
+impl From<JsonError> for OperationError {
+    fn from(err: JsonError) -> Self {
+        OperationError::ServiceError { description: format!("Json error: {}", err) }
     }
 }
 

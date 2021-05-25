@@ -1,13 +1,13 @@
-use crate::segment_manager::holders::segment_holder::{LockedSegmentHolder};
-use crate::segment_manager::segment_managers::SegmentUpdater;
-use crate::operations::{CollectionUpdateOperations, FieldIndexOperations};
-use crate::collection::{CollectionResult, CollectionError};
-use segment::types::{SeqNumberType, PointIdType, PayloadKeyType};
-use std::collections::{HashSet, HashMap};
-use crate::operations::types::VectorType;
+use std::collections::{HashMap, HashSet};
 
-use crate::operations::point_ops::{PointOperations, PointInsertOperations};
-use crate::operations::payload_ops::{PayloadOps, PayloadInterface};
+use segment::types::{PayloadKeyType, PointIdType, SeqNumberType};
+
+use crate::operations::{CollectionUpdateOperations, FieldIndexOperations};
+use crate::operations::payload_ops::{PayloadInterface, PayloadOps};
+use crate::operations::point_ops::{PointInsertOperations, PointOperations};
+use crate::operations::types::{CollectionError, CollectionResult, VectorType};
+use crate::segment_manager::holders::segment_holder::LockedSegmentHolder;
+use crate::segment_manager::segment_managers::SegmentUpdater;
 
 pub struct SimpleSegmentUpdater {
     segments: LockedSegmentHolder,
@@ -278,11 +278,13 @@ impl SegmentUpdater for SimpleSegmentUpdater {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-    use crate::segment_manager::fixtures::{build_searcher};
-    use crate::segment_manager::segment_managers::SegmentSearcher;
-    use crate::operations::payload_ops::PayloadVariant;
     use tempdir::TempDir;
+
+    use crate::operations::payload_ops::PayloadVariant;
+    use crate::segment_manager::fixtures::build_searcher;
+    use crate::segment_manager::segment_managers::SegmentSearcher;
+
+    use super::*;
 
     #[test]
     fn test_point_ops() {
@@ -292,7 +294,6 @@ mod tests {
 
         let updater = SimpleSegmentUpdater {
             segments: searcher.segments.clone(),
-            update_lock: Mutex::new(false),
         };
         let points = vec![1, 500];
 
@@ -348,7 +349,6 @@ mod tests {
 
         let updater = SimpleSegmentUpdater {
             segments: searcher.segments.clone(),
-            update_lock: Mutex::new(false),
         };
 
         let mut payload: HashMap<PayloadKeyType, PayloadInterface> = Default::default();

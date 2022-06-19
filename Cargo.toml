@@ -49,7 +49,7 @@ num-traits = "0.2.15"
 raft = { version = "=0.6.0", features = ["prost-codec"], default-features = false }
 slog = "2.7.0"
 slog-stdlog = "4.1.1"
-prost = "=0.7.0"
+prost = "=0.10.1"
 raft-proto = { version = "=0.6.0", features = ["prost-codec"], default-features = false}
 
 segment = { path = "lib/segment" }

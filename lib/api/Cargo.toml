@@ -1,12 +1,12 @@
 [package]
 name = "api"
-version = "0.8.3"
+version = "0.9.1"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-tonic = "0.7.2"
+tonic = "0.8.0"
 prost = "0.10.1"
 prost-types = "0.10.1"
 serde = { version = "~1.0", features = ["derive"] }
@@ -14,8 +14,10 @@ serde_json = "~1.0"
 schemars = { version = "0.8.10", features = ["uuid1", "preserve_order"] }
 uuid = { version = "1.1", features = ["v4", "serde"] }
 tower = "0.4.13"
-tokio = "1.19.2"
+tokio = "1.21.0"
 rand = "0.8.5"
+chrono = { version = "~0.4", features = ["serde"] }
+thiserror = "1.0"
 
 segment = {path = "../segment"}
 
